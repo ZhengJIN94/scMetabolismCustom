@@ -8,13 +8,21 @@
 #' @export sc.metabolism
 
 
-sc.metabolism <- function(countexp, method = "VISION", imputation = F, ncores = 2, metabolism.type = "KEGG") {
+sc.metabolism <- function(countexp, method = "VISION", imputation = F, ncores = 2, metabolism.type = "KEGG", species = "mouse") {
 
   #signatures_KEGG_metab <- "./data/KEGG_metabolism_nc.gmt"
   #signatures_REACTOME_metab <- "./data/REACTOME_metabolism.gmt"
 
-  signatures_KEGG_metab <- system.file("data", "KEGG_metabolism_nc.gmt", package = "scMetabolism")
-  signatures_REACTOME_metab <- system.file("data", "REACTOME_metabolism.gmt", package = "scMetabolism")
+  # signatures_KEGG_metab <- system.file("data", "KEGG_metabolism_nc.gmt", package = "scMetabolism")
+  # signatures_REACTOME_metab <- system.file("data", "REACTOME_metabolism.gmt", package = "scMetabolism")
+
+  if (species == "human"){
+    signatures_KEGG_metab <- system.file("data", "KEGG_metabolism_nc.gmt", package = "scMetabolism")
+    signatures_REACTOME_metab <- system.file("data", "REACTOME_metabolism.gmt", package = "scMetabolism")
+  }
+  if(species == "mouse"){
+    signatures_KEGG_metab <- system.file("data", "KEGG_metabolism_mouse.gmt", package = "scMetabolism")
+  }
 
   if (metabolism.type == "KEGG")  {gmtFile<-signatures_KEGG_metab; cat("Your choice is: KEGG\n")}
   if (metabolism.type == "REACTOME")  {gmtFile<-signatures_REACTOME_metab; cat("Your choice is: REACTOME\n")}
